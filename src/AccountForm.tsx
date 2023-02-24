@@ -1,17 +1,27 @@
 import React from 'react'
-import { Form } from 'react-bootstrap'
-import FormWrapper from './FormWrapper'
+import { Form } from 'react-bootstrap';
+import FormWrapper from './FormWrapper';
 
-export default function AccountForm() {
+type AccountData = {
+   email: string,
+   password: string,
+};
+
+type AccountFormProps = AccountData & {
+   updateFields: (fields: Partial<AccountData>) => void,
+};
+
+export default function AccountForm({ email,
+   password, updateFields }: AccountFormProps) {
   return (
-      <FormWrapper title="Account Details">
+      <FormWrapper title="Account Creation">
          <Form.Group className="mb-3">
-            <Form.Label>Balance</Form.Label>
-            <Form.Control autoFocus type="text" placeholder="Enter Balance" />
+            <Form.Label>Email</Form.Label>
+            <Form.Control required autoFocus type="email" placeholder="Enter Email" value={email} onChange={(e) => updateFields({ email: e.target.value })} />
          </Form.Group>
          <Form.Group className="mb-3">
-            <Form.Label>City</Form.Label>
-            <Form.Control type="text" placeholder="Enter city" />
+            <Form.Label>Password</Form.Label>
+            <Form.Control required type="password" placeholder="Enter city" value={password} onChange={(e) => updateFields({ password: e.target.value })} />
          </Form.Group>
       </FormWrapper>
   )

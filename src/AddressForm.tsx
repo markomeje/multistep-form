@@ -1,21 +1,38 @@
 import React from 'react'
 import { Form } from 'react-bootstrap'
-import FormWrapper from './FormWrapper'
+import FormWrapper from './FormWrapper';
 
-export default function AddressForm() {
+type AddressData = {
+   state: string,
+   city: string,
+   zip: string,
+   street: string
+};
+
+type AddressFormProps = AddressData & {
+   updateFields: (fields: Partial<AddressData>) => void,
+};
+
+
+
+export default function AddressForm({ state, city, zip, street, updateFields }: AddressFormProps) {
    return (
       <FormWrapper title="Address Details">
          <Form.Group className="mb-3">
             <Form.Label>State</Form.Label>
-            <Form.Control autoFocus type="text" placeholder="Enter state" />
+            <Form.Control required autoFocus type="text" placeholder="Enter state" value={state} onChange={(e) => updateFields({ state: e.target.value })} />
          </Form.Group>
          <Form.Group className="mb-3">
             <Form.Label>City</Form.Label>
-            <Form.Control type="text" placeholder="Enter city" />
+            <Form.Control required type="text" placeholder="Enter city" value={city} onChange={(e) => updateFields({ city: e.target.value })} />
          </Form.Group>
          <Form.Group className="mb-3">
-            <Form.Label>Age</Form.Label>
-            <Form.Control type="number" placeholder="Enter age" />
+            <Form.Label>Zip</Form.Label>
+            <Form.Control required type="number" placeholder="Enter zip" value={zip} onChange={(e) => updateFields({ zip: e.target.value })} />
+         </Form.Group>
+         <Form.Group className="mb-3">
+            <Form.Label>Street</Form.Label>
+            <Form.Control required type="text" placeholder="Enter street" value={street} onChange={(e) => updateFields({ street: e.target.value })} />
          </Form.Group>
       </FormWrapper>
    )
